@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace parana_bank_credit_offer.Controllers.v1
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v{version:apiVersion}/")]
     public class CreditOfferController : ControllerBase
     {
 
@@ -15,6 +17,10 @@ namespace parana_bank_credit_offer.Controllers.v1
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "new credit offer", Description = "Insert new credit offer")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SendNewCreditOfferAsync()
         {
             return Ok();
