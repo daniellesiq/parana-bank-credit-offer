@@ -1,3 +1,5 @@
+using Domain.UseCases.Boundaries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -8,12 +10,11 @@ namespace parana_bank_credit_offer.Controllers.v1
     [Route("api/v{version:apiVersion}/")]
     public class CreditOfferController : ControllerBase
     {
+        private readonly IMediator _mediator;
 
-        private readonly ILogger<CreditOfferController> _logger;
-
-        public CreditOfferController(ILogger<CreditOfferController> logger)
+        public CreditOfferController(IMediator mediator)
         {
-            _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -21,9 +22,11 @@ namespace parana_bank_credit_offer.Controllers.v1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> SendNewCreditOfferAsync()
+        public async Task<IActionResult> SendNewCreditOfferAsync([FromBody] InsertClientInput input, CancellationToken cancellationToken)
         {
-            return Ok();
+            await _mediator.Send(input, cancellationToken);
+
+            return Created();
         }
     }
 }
