@@ -12,9 +12,8 @@ namespace Infra.Messaging
         private readonly ILogger<CreditOfferProducer> _logger;
         private readonly ConnectionFactory _connectionFactory;
 
-        public CreditOfferProducer(string queueName, ILogger<CreditOfferProducer> logger, ConnectionFactory connectionFactory)
+        public CreditOfferProducer(ILogger<CreditOfferProducer> logger, ConnectionFactory connectionFactory)
         {
-            _queueName = queueName;
             _logger = logger;
             _connectionFactory = connectionFactory;
         }

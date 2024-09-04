@@ -1,6 +1,6 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Entity;
+using Domain.Interfaces;
 using Domain.Interfaces.Messaging;
-using Domain.UseCases.Boundaries;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.UseCases
@@ -11,31 +11,31 @@ namespace Domain.UseCases
         private readonly ILogger<InsertCreditOfferUseCase> _logger;
 
         public InsertCreditOfferUseCase(
-            ILogger<InsertCreditOfferUseCase> logger,
-            ICreditOfferProducer producer)
+            ICreditOfferProducer producer,
+            ILogger<InsertCreditOfferUseCase> logger)
         {
             _logger = logger;
             _producer = producer;
         }
 
-        public async Task<string> Handle(InsertClientInput input, CancellationToken cancellationToken)
+        public async Task<string> Handle(ClientOfferMessage message, CancellationToken cancellationToken)
         {
             try
             {
                 _logger.LogInformation("{Class} | Publish message | CorrelationId: {CorrelationId}",
                  nameof(InsertCreditOfferUseCase),
-                 input.CorrelationId);
+                 message.CorrelationId);
 
-                //Mapper
-                //var message = 
+                ///Add use case
 
-                _producer.ProducerMessage(input);
+                ///Add Mapper
+                _producer.ProducerMessage(message);
 
                 return "";
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error to publish message.");
+                _logger.LogError(ex, "Error.");
                 throw;
             }
         }

@@ -1,4 +1,4 @@
-using Domain.UseCases.Boundaries;
+using Domain.Entity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -22,7 +22,7 @@ namespace parana_bank_credit_offer.Controllers.v1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> SendNewCreditOfferAsync([FromBody] InsertClientInput input, CancellationToken cancellationToken)
+        public async Task<IActionResult> SendNewCreditOfferAsync([FromBody] ClientOfferMessage input, CancellationToken cancellationToken)
         {
             await _mediator.Send(input, cancellationToken);
 

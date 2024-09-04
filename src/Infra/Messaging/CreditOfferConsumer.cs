@@ -1,4 +1,4 @@
-﻿using Domain.UseCases.Boundaries;
+﻿using Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -47,9 +47,9 @@ namespace Infra.Messaging
             {
                 var contentArray = eventArgs.Body.ToArray();
                 var contentString = Encoding.UTF8.GetString(contentArray);
-                var message = JsonConvert.DeserializeObject<InsertClientInput>(contentString);
+                var message = JsonConvert.DeserializeObject<ClientOfferMessage>(contentString);
 
-                _logger.LogInformation($"Message: {message!.Client.ToString()}");
+                _logger.LogInformation($"Message: {message!.ToString()}");
                 _channel.BasicAck(deliveryTag: eventArgs.DeliveryTag, multiple: false);
 
                 _mediator.Send(message, cancellationToken);

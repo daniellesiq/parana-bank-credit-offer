@@ -1,5 +1,5 @@
 using parana_bank_credit_offer.Extensions;
-using Infra.InfraExtensions;
+using Infra.Extensions;
 using Domain.UseCases.Boundaries;
 using Infra.Messaging;
 
@@ -13,11 +13,9 @@ builder.Services.AddSwaggerGen(options =>
     options.EnableAnnotations();
 });
 builder.Services.AddSwaggerOptions();
-builder.Services.AddConsumers();
+builder.Services.AddRabbitExtensions();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(InsertClientInput).Assembly));
-
-builder.Services.AddHostedService<CreditOfferConsumer>();
 
 var app = builder.Build();
 
