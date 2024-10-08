@@ -1,24 +1,20 @@
-﻿using Domain.Entity;
-using Domain.Interfaces;
-using Domain.Interfaces.Messaging;
+﻿using Domain.Interfaces;
+using Domain.UseCases.Boundaries;
 using Microsoft.Extensions.Logging;
 
 namespace Domain.UseCases
 {
     public class InsertCreditOfferUseCase : IInsertCreditOfferUseCase
     {
-        private readonly ICreditOfferProducer _producer;
         private readonly ILogger<InsertCreditOfferUseCase> _logger;
 
         public InsertCreditOfferUseCase(
-            ICreditOfferProducer producer,
             ILogger<InsertCreditOfferUseCase> logger)
         {
             _logger = logger;
-            _producer = producer;
         }
 
-        public async Task<string> Handle(ClientOfferMessage message, CancellationToken cancellationToken)
+        public async Task<string> Handle(InsertClientInput message, CancellationToken cancellationToken)
         {
             try
             {
@@ -29,7 +25,7 @@ namespace Domain.UseCases
                 ///Add use case
 
                 ///Add Mapper
-                _producer.ProducerMessage(message);
+                //_producer.ProducerMessage(message);
 
                 return "";
             }

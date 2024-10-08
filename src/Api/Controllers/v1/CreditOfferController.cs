@@ -1,4 +1,5 @@
-using Domain.Entity;
+using Domain.Events;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -11,10 +12,14 @@ namespace parana_bank_credit_offer.Controllers.v1
     public class CreditOfferController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IPublishEndpoint _publisher;
+        private readonly ILogger<CreditOfferController> _logger;
 
-        public CreditOfferController(IMediator mediator)
+        public CreditOfferController(IMediator mediator, IPublishEndpoint publisher, ILogger<CreditOfferController> logger)
         {
             _mediator = mediator;
+            _publisher = publisher;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -22,11 +27,17 @@ namespace parana_bank_credit_offer.Controllers.v1
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> SendNewCreditOfferAsync([FromBody] ClientOfferMessage input, CancellationToken cancellationToken)
+        public async Task<IActionResult> SendNewCreditOfferAsync([FromBody] ClientOfferEvent input, CancellationToken cancellationToken)
         {
-            await _mediator.Send(input, cancellationToken);
+            if (input != null)
+            {
+                await _publisher.Publish<ClientOfferEvent>(input, cancellationToken);
 
-            return Created();
+                _logger.LogInformation($"Sent event: {nameof(ClientOfferEvent.CorrelationId)}");
+
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

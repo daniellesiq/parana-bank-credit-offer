@@ -1,18 +1,14 @@
-﻿using Domain.Interfaces.Messaging;
-using Infra.Messaging;
+﻿using Domain.Interfaces;
+using Domain.UseCases;
 using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client;
 
 namespace Infra.Extensions
 {
     public static class InfraExtensions
     {
-        public static IServiceCollection AddRabbitExtensions(this IServiceCollection services)
+        public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<ICreditOfferProducer, CreditOfferProducer>();
-            services.AddSingleton<ConnectionFactory>(new ConnectionFactory { HostName = "localhost" });
-            services.AddHostedService<CreditOfferConsumer>();
-
+            services.AddSingleton<IInsertCreditOfferUseCase, InsertCreditOfferUseCase>();
             return services;
         }
     }
