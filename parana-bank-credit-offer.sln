@@ -7,14 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{67234930-9CAB-4A27-A67C-1BAC019CB33F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra", "src\Infra\Infra.csproj", "{D7DAD5B9-3331-49DD-A268-64DD4216D152}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7ADE94D2-8E54-4692-BC0D-4077B612BF97}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "src\Worker\Worker.csproj", "{441A556F-FD4A-4A3C-89D4-3F87F81FFF8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker", "src\Worker\Worker.csproj", "{441A556F-FD4A-4A3C-89D4-3F87F81FFF8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +28,6 @@ Global
 		{67234930-9CAB-4A27-A67C-1BAC019CB33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67234930-9CAB-4A27-A67C-1BAC019CB33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67234930-9CAB-4A27-A67C-1BAC019CB33F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7DAD5B9-3331-49DD-A268-64DD4216D152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7DAD5B9-3331-49DD-A268-64DD4216D152}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D7DAD5B9-3331-49DD-A268-64DD4216D152}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D7DAD5B9-3331-49DD-A268-64DD4216D152}.Release|Any CPU.Build.0 = Release|Any CPU
 		{441A556F-FD4A-4A3C-89D4-3F87F81FFF8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{441A556F-FD4A-4A3C-89D4-3F87F81FFF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{441A556F-FD4A-4A3C-89D4-3F87F81FFF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU

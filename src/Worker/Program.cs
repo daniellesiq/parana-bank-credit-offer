@@ -1,4 +1,5 @@
 using Domain.Events;
+using Domain.UseCases.Boundaries;
 using MassTransit;
 using Worker.Message;
 
@@ -14,7 +15,7 @@ var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, collection) =>
     {
         collection.AddHttpContextAccessor();
-
+        collection.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreditOfferInput).Assembly));
         collection.AddMassTransit(x =>
         {
             x.AddDelayedMessageScheduler();

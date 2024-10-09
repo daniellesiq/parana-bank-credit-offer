@@ -1,6 +1,5 @@
 using Domain.Events;
 using MassTransit;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -11,20 +10,18 @@ namespace parana_bank_credit_offer.Controllers.v1
     [Route("api/v{version:apiVersion}/")]
     public class CreditOfferController : ControllerBase
     {
-        private readonly IMediator _mediator;
         private readonly IPublishEndpoint _publisher;
         private readonly ILogger<CreditOfferController> _logger;
 
-        public CreditOfferController(IMediator mediator, IPublishEndpoint publisher, ILogger<CreditOfferController> logger)
+        public CreditOfferController(IPublishEndpoint publisher, ILogger<CreditOfferController> logger)
         {
-            _mediator = mediator;
             _publisher = publisher;
             _logger = logger;
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "new credit offer", Description = "Insert new credit offer")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SendNewCreditOfferAsync([FromBody] ClientOfferEvent input, CancellationToken cancellationToken)

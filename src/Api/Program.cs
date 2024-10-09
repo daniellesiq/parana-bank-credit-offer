@@ -1,5 +1,3 @@
-using Domain.UseCases.Boundaries;
-using Infra.Extensions;
 using parana_bank_credit_offer.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +14,7 @@ builder.Services.AddSwaggerOptions();
 builder.Services.AddMassTransitExtension(configuration);
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddServices();
-
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(InsertClientInput).Assembly));
+builder.Services.AddMediatR();
 
 var app = builder.Build();
 

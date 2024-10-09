@@ -1,12 +1,10 @@
-﻿namespace Domain.Events
+﻿using MediatR;
+
+namespace Domain.UseCases.Boundaries
 {
-    public record ClientOfferEvent
+    public record CreditOfferInput : IRequest<string>
     {
-        public ClientOfferEvent(
-             Guid correlationId,
-             long document,
-             decimal income,
-             int score)
+        public CreditOfferInput(Guid correlationId, long document, decimal income, int score)
         {
             CorrelationId = correlationId;
             Document = document;

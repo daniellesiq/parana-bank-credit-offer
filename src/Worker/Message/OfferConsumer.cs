@@ -1,18 +1,19 @@
 ﻿using Domain.Events;
 using Domain.Mappers;
 using MassTransit;
+using MediatR;
 
 namespace Worker.Message
 {
     public class OfferConsumer : IConsumer<ClientOfferEvent>
     {
         private readonly ILogger<OfferConsumer> _logger;
-        private readonly IPublishEndpoint _publisher;
+        private readonly IMediator _mediator;
 
-        public OfferConsumer(ILogger<OfferConsumer> logger, IPublishEndpoint publisher)
+        public OfferConsumer(ILogger<OfferConsumer> logger, IMediator mediator)
         {
             _logger = logger;
-            _publisher = publisher;
+            _mediator = mediator;
         }
 
         public async Task Consume(ConsumeContext<ClientOfferEvent> context)
@@ -22,14 +23,12 @@ namespace Worker.Message
             {
                 _logger.LogInformation($"Event received: {nameof(OfferConsumer)}: {document} ");
 
-                var message = OfferMappers.ToEvent(context);
-                await _publisher.Publish(message);
-
-                _logger.LogInformation($"Sent event: {nameof(OfferConsumer)}: {document} ");
+                var input = OfferMappers.EventToInput(context);
+                await _mediator.Send(input);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex, "Error.");
                 throw;
             }
         }
