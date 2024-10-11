@@ -26,6 +26,8 @@ var host = Host.CreateDefaultBuilder(args)
 
             x.UsingRabbitMq((ctx, cfg) =>
             {
+                cfg.Durable = true;
+                cfg.AutoDelete = false;
                 cfg.Host(context.Configuration.GetConnectionString("RabbitMq"));
                 cfg.UseDelayedMessageScheduler();
                 cfg.ServiceInstance(instance =>
@@ -34,6 +36,7 @@ var host = Host.CreateDefaultBuilder(args)
                     instance.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("dev", false));
 
                 });
+                cfg.UseMessageRetry(retry => { retry.Interval(3, TimeSpan.FromSeconds(5)); });
             });
         });
     }).Build();

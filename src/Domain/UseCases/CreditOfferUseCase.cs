@@ -43,7 +43,7 @@ namespace Domain.UseCases
                      input.CorrelationId);
 
                 var offerEvent = OfferMappers.InputToEvent(input, LIMIT);
-                await _publisher.Publish<CreditCardEvent>(offerEvent, cancellationToken);
+                await _publisher.Publish(offerEvent, cancellationToken);
 
                 _logger.LogInformation("{Class} | Ending | CorrelationId: {CorrelationId}",
                     nameof(CreditOfferUseCase),

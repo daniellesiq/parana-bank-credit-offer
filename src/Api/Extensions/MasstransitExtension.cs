@@ -13,8 +13,9 @@ namespace parana_bank_credit_offer.Extensions
 
                 bus.UsingRabbitMq((ctx, cfg) =>
                 {
+                    cfg.Durable = true;
+                    cfg.AutoDelete = false;
                     cfg.Host(configuration.GetConnectionString("RabbitMq"));
-
                     cfg.UseDelayedMessageScheduler();
                     cfg.ConfigureEndpoints(ctx, new KebabCaseEndpointNameFormatter("dev", false));
                     cfg.UseMessageRetry(retry => { retry.Interval(3, TimeSpan.FromSeconds(5)); });
