@@ -1,5 +1,4 @@
-﻿using Domain.Events;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.Mappers;
 using Domain.UseCases.Boundaries;
 using MassTransit;
@@ -31,7 +30,7 @@ namespace Domain.UseCases
 
                 if (input.Score < 300)
                 {
-                    _logger.LogDebug("{Class} | Score Very Low Offer Denied  |  | CorrelationId: {CorrelationId}",
+                    _logger.LogInformation("{Class} | Score Very Low Offer Denied  |  | CorrelationId: {CorrelationId}",
                      nameof(CreditOfferUseCase),
                      input.CorrelationId);
 
