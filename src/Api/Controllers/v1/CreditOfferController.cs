@@ -7,7 +7,7 @@ namespace parana_bank_credit_offer.Controllers.v1
 {
     [ApiVersion("1")]
     [ApiController]
-    [Route("api/v{version:apiVersion}/")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class CreditOfferController : ControllerBase
     {
         private readonly IPublishEndpoint _publisher;
@@ -30,7 +30,9 @@ namespace parana_bank_credit_offer.Controllers.v1
             {
                 await _publisher.Publish<ClientOfferEvent>(input, cancellationToken);
 
-                _logger.LogInformation($"Sent event: {nameof(ClientOfferEvent.CorrelationId)}");
+                _logger.LogInformation("Sent event: CorrelationId: {CorrelationId} | Document: {Document}",
+                    input.CorrelationId,
+                    input.Document);
 
                 return Ok();
             }

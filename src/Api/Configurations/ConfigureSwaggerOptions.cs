@@ -23,7 +23,6 @@ namespace parana_bank_credit_offer.Configurations
             var info = new OpenApiInfo()
             {
                 Title = "parana-bank-credit-offer",
-                Version = description.ApiVersion.ToString(),
                 Description = "API Credit Offer",
             };
 

@@ -18,10 +18,12 @@ namespace Worker.Message
 
         public async Task Consume(ConsumeContext<ClientOfferEvent> context)
         {
-            var document = context.Message.Document;
             try
             {
-                _logger.LogInformation($"Event received: {nameof(OfferConsumer)}: {document} ");
+                _logger.LogInformation("Event received: {Class} | CorrelationId: {CorrelationId} | Document: {Document}",
+                    nameof(OfferConsumer),
+                    context.Message.CorrelationId,
+                    context.Message.Document);
 
                 var input = OfferMappers.EventToInput(context);
                 await _mediator.Send(input);
