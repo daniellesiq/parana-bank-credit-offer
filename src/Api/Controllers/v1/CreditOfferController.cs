@@ -28,7 +28,7 @@ namespace parana_bank_credit_offer.Controllers.v1
         {
             if (input != null)
             {
-                await _publisher.Publish<ClientOfferEvent>(input, cancellationToken);
+                await _publisher.Publish(input, cancellationToken);
 
                 _logger.LogInformation("Sent event: CorrelationId: {CorrelationId} | Document: {Document}",
                     input.CorrelationId,

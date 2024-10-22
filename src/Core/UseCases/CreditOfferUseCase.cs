@@ -37,7 +37,7 @@ namespace Domain.UseCases
                     return "";
                 }
 
-                _logger.LogDebug("{Class} | Offer Approved | CorrelationId: {CorrelationId}",
+                _logger.LogInformation("{Class} | Offer Approved | CorrelationId: {CorrelationId}",
                      nameof(CreditOfferUseCase),
                      input.CorrelationId);
 
