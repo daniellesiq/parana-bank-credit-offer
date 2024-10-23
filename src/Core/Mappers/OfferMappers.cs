@@ -8,23 +8,27 @@ namespace Domain.Mappers
     {
         public static CreditOfferInput EventToInput(ConsumeContext<ClientOfferEvent> clientEvent)
         {
-            return new CreditOfferInput(
-                clientEvent.Message.CorrelationId,
-                clientEvent.Message.Document,
-                clientEvent.Message.Income,
-                clientEvent.Message.Score
-                );
+            var creditOfferInput = new CreditOfferInput
+            {
+                CorrelationId = clientEvent.Message.CorrelationId,
+                Document = clientEvent.Message.Document,
+                Income = clientEvent.Message.Income,
+                Score = clientEvent.Message.Score
+            };
+            return creditOfferInput;
         }
 
         public static CreditCardEvent InputToEvent(CreditOfferInput input, decimal limit)
         {
-            return new CreditCardEvent(
-                input.CorrelationId,
-                input.Document,
-                input.Income,
-                input.Score,
-                limit
-                );
+            var creditCardEvent = new CreditCardEvent
+            {
+                CorrelationId = input.CorrelationId,
+                Document = input.Document,
+                Income = input.Income,
+                Score = input.Score,
+                CreditLimit = limit
+            };
+            return creditCardEvent;
         }
     }
 }
