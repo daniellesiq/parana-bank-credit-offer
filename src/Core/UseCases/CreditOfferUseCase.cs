@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Core.Events;
+using Domain.Interfaces;
 using Domain.Mappers;
 using Domain.UseCases.Boundaries;
 using MassTransit;
@@ -53,6 +54,14 @@ namespace Domain.UseCases
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error.");
+
+                await _publisher.Publish(new ErrorEvent
+                {
+                    CorrelationId = input.CorrelationId,
+                    ErrorMessage = ex.Message,
+                    Source = "CreditOffer"
+                }, cancellationToken);
+
                 throw;
             }
         }
